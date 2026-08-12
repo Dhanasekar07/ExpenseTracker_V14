@@ -329,7 +329,7 @@ class OverlayService : Service() {
             val observer = SmsObserver(this, handler)
             observer.seedLastId()  // Don't re-fire on existing SMS
             contentResolver.registerContentObserver(
-                Uri.parse("content://sms/inbox"),
+                SmsObserver.OBSERVE_URI,
                 true,
                 observer
             )
