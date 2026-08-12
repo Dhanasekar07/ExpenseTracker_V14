@@ -20,7 +20,8 @@ class SmsObserver(
 
     companion object {
         private const val TAG = "ExpenseTracker"
-        private val SMS_URI = Uri.parse("content://sms/inbox")
+        private val SMS_INBOX_URI = Uri.parse("content://sms/inbox")
+        val OBSERVE_URI: Uri = Uri.parse("content://sms")
 
         // Track the last SMS _id we processed to avoid re-reads
         @Volatile
@@ -44,7 +45,7 @@ class SmsObserver(
 
     private fun readLatestSms() {
         val cursor = context.contentResolver.query(
-            SMS_URI,
+            SMS_INBOX_URI,
             arrayOf("_id", "address", "body", "date"),
             null, null,
             "date DESC LIMIT 3"  // Read last 3 to handle rapid arrivals
@@ -127,7 +128,7 @@ class SmsObserver(
     fun seedLastId() {
         try {
             val cursor = context.contentResolver.query(
-                SMS_URI,
+                SMS_INBOX_URI ,
                 arrayOf("_id"),
                 null, null,
                 "date DESC LIMIT 1"
