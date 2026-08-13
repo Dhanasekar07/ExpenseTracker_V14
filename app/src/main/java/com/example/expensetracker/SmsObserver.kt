@@ -67,7 +67,7 @@ class SmsObserver(
 
     private fun processSms(sender: String, body: String) {
 
-        log.d(TAG, "    [SMS OBJ][DEBUG LOGS][Body - $body][Sender - $sender]")
+        Log.d(TAG, "    [SMS OBJ][DEBUG LOGS][Body - $body][Sender - $sender]")
         
         // Stage 1-3: Shared debit filter
         if (!TransactionFilter.isLegitimateDebit(body)) {
