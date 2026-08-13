@@ -193,15 +193,16 @@ class TransactionsActivity : AppCompatActivity() {
             orientation = LinearLayout.HORIZONTAL
             gravity     = android.view.Gravity.CENTER_VERTICAL
             background  = getDrawable(R.drawable.bg_normal_row)
-            setPadding(12, 14, 12, 14)
+            setPadding(dp(12), dp(0), dp(12), dp(0))
+            elevation   = 1f * resources.displayMetrics.density
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply { setMargins(0, 0, 0, 8) }
+                dp(68)
+            ).apply { setMargins(0, 0, 0, dp(8)) }
         }
 
         val iconBg = FrameLayout(this).apply {
-            layoutParams = LinearLayout.LayoutParams(48, 48).apply { setMargins(0, 0, 14, 0) }
+            layoutParams = LinearLayout.LayoutParams(dp(44), dp(44)).apply { setMargins(0, 0, dp(12), 0) }
         }
         CategoryIcon.applyIcon(iconBg, expense.category,
             cat?.colorHex ?: "#E2E8F0",
@@ -231,17 +232,17 @@ class TransactionsActivity : AppCompatActivity() {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply { setMargins(0, 0, 8, 0) }
+            ).apply { setMargins(0, 0, dp(8), 0) }
         }
 
         val btnEdit = ImageView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(28, 28).apply { setMargins(0, 0, 6, 0) }
+            layoutParams = LinearLayout.LayoutParams(dp(28), dp(28)).apply { setMargins(0, 0, dp(6), 0) }
             setImageResource(R.drawable.ic_edit)
         }
         btnEdit.setOnClickListener { showEditCategorySheet(expense) }
 
         val btnDelete = ImageView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(28, 28)
+            layoutParams = LinearLayout.LayoutParams(dp(28), dp(28))
             setImageResource(R.drawable.ic_delete)
         }
         btnDelete.setOnClickListener {
@@ -264,6 +265,8 @@ class TransactionsActivity : AppCompatActivity() {
         row.addView(amt); row.addView(btnEdit); row.addView(btnDelete)
         container.addView(row)
     }
+
+    private fun dp(v: Int): Int = (v * resources.displayMetrics.density).toInt()
 
     private fun showEditCategorySheet(expense: Expense) {
         val categories = CategoryManager.activeCategories
