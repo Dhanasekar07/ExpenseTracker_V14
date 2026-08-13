@@ -28,14 +28,8 @@ class SmsObserver(
         private var lastProcessedId: Long = -1L
     }
 
-    override fun onChange(selfChange: Boolean) {
-        onChange(selfChange, null)
-    }
-
     override fun onChange(selfChange: Boolean, uri: Uri?) {
-        super.onChange(selfChange, uri)
         Log.d(TAG, "SmsObserver: inbox changed")
-
         try {
             readLatestSms()
         } catch (e: Exception) {
@@ -72,6 +66,9 @@ class SmsObserver(
     }
 
     private fun processSms(sender: String, body: String) {
+
+        log.d(TAG, "    [SMS OBJ][DEBUG LOGS][Body - $body][Sender - $sender]")
+        
         // Stage 1-3: Shared debit filter
         if (!TransactionFilter.isLegitimateDebit(body)) {
             Log.d(TAG, "SmsObserver: failed debit filter")
