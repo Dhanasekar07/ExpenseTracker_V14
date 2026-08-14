@@ -193,16 +193,16 @@ class TransactionsActivity : AppCompatActivity() {
             orientation = LinearLayout.HORIZONTAL
             gravity     = android.view.Gravity.CENTER_VERTICAL
             background  = getDrawable(R.drawable.bg_normal_row)
-            setPadding(dp(12), dp(0), dp(12), dp(0))
+            setPadding(dp(16), dp(0), dp(12), dp(0))
             elevation   = 1f * resources.displayMetrics.density
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                dp(68)
+                dp(64)
             ).apply { setMargins(0, 0, 0, dp(8)) }
         }
 
         val iconBg = FrameLayout(this).apply {
-            layoutParams = LinearLayout.LayoutParams(dp(44), dp(44)).apply { setMargins(0, 0, dp(12), 0) }
+            layoutParams = LinearLayout.LayoutParams(dp(40), dp(40)).apply { setMargins(0, 0, dp(12), 0) }
         }
         CategoryIcon.applyIcon(iconBg, expense.category,
             cat?.colorHex ?: "#E2E8F0",
@@ -226,24 +226,26 @@ class TransactionsActivity : AppCompatActivity() {
         val amt = TextView(this).apply {
             text = if (expense.amount > 0)
                 "$currency${String.format("%.0f", expense.amount)}" else "$currency-"
-            textSize = 15f
+            textSize = 19f
             setTextColor(ThemeColors.amountNeg(this))
             typeface = Typeface.DEFAULT_BOLD
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply { setMargins(0, 0, dp(8), 0) }
+            ).apply { setMargins(0, 0, dp(4), 0) }
         }
 
         val btnEdit = ImageView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(dp(28), dp(28)).apply { setMargins(0, 0, dp(6), 0) }
+            layoutParams = LinearLayout.LayoutParams(dp(28), dp(28)).apply { setMargins(0, 0, dp(4), 0) }
             setImageResource(R.drawable.ic_edit)
+            setPadding(dp(4), dp(4), dp(4), dp(4))
         }
         btnEdit.setOnClickListener { showEditCategorySheet(expense) }
 
         val btnDelete = ImageView(this).apply {
             layoutParams = LinearLayout.LayoutParams(dp(28), dp(28))
             setImageResource(R.drawable.ic_delete)
+            setPadding(dp(4), dp(4), dp(4), dp(4))
         }
         btnDelete.setOnClickListener {
             AlertDialog.Builder(this)
